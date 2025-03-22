@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0F172A"/>
+
+  <!-- Decorative elements -->
+  <rect x="40" y="40" width="1120" height="550" stroke="#334155" stroke-width="2" fill="none"/>
+
+  <!-- Title placeholders -->
+  <text id="title1" x="80" y="180" font-family="Inter" font-weight="700" font-size="64" fill="#F8FAFC">
+    {{title1}}
+  </text>
+  <text id="title2" x="80" y="260" font-family="Inter" font-weight="700" font-size="64" fill="#F8FAFC">
+    {{title2}}
+  </text>
+  <text id="title3" x="80" y="340" font-family="Inter" font-weight="700" font-size="64" fill="#F8FAFC">
+    {{title3}}
+  </text>
+
+  <!-- Blog info -->
+  <text x="350" y="540" font-family="Inter" font-weight="500" font-size="32" fill="#94A3B8">
+    Tech Emiretus - techemiretus.dev
+  </text>
+</svg>

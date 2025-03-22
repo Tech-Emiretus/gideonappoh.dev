@@ -8,6 +8,7 @@
             <Home v-if="frontmatter.layout === 'home'" />
             <BlogIndex v-if="frontmatter.layout === 'blog'" />
             <BlogPost v-else-if="isBlogPost" />
+            <NotFound v-else-if="page.title === '404'" />
             <Content v-else />
         </main>
     </div>
@@ -20,7 +21,8 @@ import Home from "./pages/Home.vue";
 import TopNav from "./components/TopNav.vue";
 import { useData } from "vitepress";
 import { computed } from "vue";
+import NotFound from "./pages/NotFound.vue";
 
-const { frontmatter } = useData();
+const { frontmatter, page } = useData();
 const isBlogPost = computed(() => frontmatter.value.layout === 'blog-post');
 </script>

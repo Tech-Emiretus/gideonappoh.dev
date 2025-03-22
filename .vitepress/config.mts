@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 import * as MarkdownItGitHubAlerts from 'markdown-it-github-alerts';
 import { joinURL, withoutTrailingSlash } from 'ufo'
+import { genOg } from './generateOg.mts';
 
 const siteUrl = 'https://techemiretus.dev';
 
@@ -29,7 +30,7 @@ export default defineConfig({
         hostname: siteUrl,
     },
 
-    transformPageData: (pageData, { siteConfig }) => {
+    async transformPageData(pageData, { siteConfig }) {
         // Set layout for blog articles
         if (pageData.filePath.startsWith('blog/')) {
             pageData.frontmatter.layout = 'blog-post'
@@ -96,6 +97,41 @@ export default defineConfig({
                 ),
             },
         ]);
+
+        // Integrate OG image URL into frontmatter
+        const ogName = pageData.filePath
+            .replaceAll(/\//g, '-')
+            .replace(/\.md$/, '.png');
+
+        await genOg(
+            pageData.frontmatter.title || pageData.title || siteConfig.site.title,
+            joinURL(siteConfig.srcDir, 'public', 'og', ogName),
+        )
+
+        pageData.frontmatter.head.push(
+            [
+                'meta',
+                {
+                    property: 'og:image',
+                    content: joinURL(
+                        siteUrl, // Please, change this before deploying
+                        'og',
+                        ogName,
+                    ),
+                },
+            ],
+            [
+                'meta',
+                {
+                    name: 'twitter:image',
+                    content: joinURL(
+                        siteUrl, // Please, change this before deploying
+                        'og',
+                        ogName,
+                    ),
+                },
+            ],
+        );
     },
 
     themeConfig: {
