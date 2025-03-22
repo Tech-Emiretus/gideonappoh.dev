@@ -58,13 +58,15 @@ div[class*="language-"] > span.lang {
 /* End of Code Styles */
 
 /* Blog Post Styles */
-.blog-post nav.table-of-contents {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
+@media (width > 96rem) {
+    .blog-post nav.table-of-contents {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 
-.blog-post .prose {
-    position: static !important;
+    .blog-post .prose {
+        position: static !important;
+    }
 }
 /* End of Blog Post Styles */

@@ -1,5 +1,5 @@
 <template>
-    <section class="space-y-16">
+    <section class="space-y-16  p-8 md:p-12">
         <h1 class="text-6xl font-semibold text-gray-900 dark:text-gray-100">
             {{ frontmatter.title }}
         </h1>
