@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@config '../../../tailwind.config.mts';
+
+@source '../../../src/**/*.md';
+@source '../**/*.{vue,ts}';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-yellow: #ffbf00;
+  --color-sand: #fdf6e3;
+  --background-light: #fafafa;
+  --background-dark: #111827;
+}
+
+body {
+    font-family: "Space Grotesk", sans-serif;
+    background-color: var(--background-light);
+}
+
+.dark body {
+    background-color: var(--background-dark);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark .gradient-text {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Code Styles */
+div[class*="language-"] {
+    position: relative;
+    margin: 1.75em 0;
+}
+
+div[class*="language-"] > button.copy {
+    display: none;
+}
+
+div[class*="language-"] > span.lang {
+    position: absolute;
+    top: -1.25rem;
+    right: 0px;
+    z-index: 2;
+    font-size: 12px;
+    font-weight: 500;
+}
+/* End of Code Styles */
+
+/* Blog Post Styles */
+.blog-post nav.table-of-contents {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.blog-post .prose {
+    position: static !important;
+}
+/* End of Blog Post Styles */

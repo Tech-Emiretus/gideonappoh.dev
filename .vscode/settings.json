@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "Emiretus",
+        "vitepress"
+    ],
+    "prettier.enable": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
