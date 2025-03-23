@@ -3,12 +3,12 @@ import * as MarkdownItGitHubAlerts from 'markdown-it-github-alerts';
 import { joinURL, withoutTrailingSlash } from 'ufo'
 import { genOg } from './generateOg.mts';
 
-const siteUrl = 'https://techemiretus.dev';
+const siteUrl = 'https://gideonappoh.dev';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     lang: 'en-US',
-    title: "Tech Emiretus",
+    title: "Gideon Appoh",
     description: "Personal website and blog for Gideon Appoh",
 
     srcDir: 'src',
@@ -20,7 +20,7 @@ export default defineConfig({
         ['meta', { property: 'og:image:width', content: '1200' }],
         ['meta', { property: 'og:image:height', content: '630' }],
         ['meta', { property: 'og:image:type', content: 'image/png' }],
-        ['meta', { property: 'og:site_name', content: 'Tech Emiretus' }],
+        ['meta', { property: 'og:site_name', content: 'Gideon Appoh' }],
         ['meta', { property: 'og:type', content: 'website' }],
         ['link', { rel: 'icon', href: '/favicon/favicon.ico' }],
         ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap' }]

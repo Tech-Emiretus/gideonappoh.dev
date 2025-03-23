@@ -1,5 +1,5 @@
 ---
 layout: home
-title: "Gideon Appoh | Tech-Emiretus"
+title: "Home"
 description: "Personal website and blog for Gideon Appoh"
 ---
