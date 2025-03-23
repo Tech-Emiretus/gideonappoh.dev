@@ -15,7 +15,7 @@ export default defineConfig({
     cleanUrls: true,
 
     head: [
-        ['meta', { name: 'twitter:site', content: '@GideonAppoh' }],
+        ['meta', { name: 'twitter:site', content: '@Gideon_Appoh' }],
         ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
         ['meta', { property: 'og:image:width', content: '1200' }],
         ['meta', { property: 'og:image:height', content: '630' }],
