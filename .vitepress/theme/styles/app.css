@@ -61,8 +61,8 @@ div[class*="language-"] > span.lang {
 @media (width > 96rem) {
     .blog-post nav.table-of-contents {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: -1.2rem;
+        right: -5rem;
     }
 
     .blog-post .prose {

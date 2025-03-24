@@ -7,7 +7,7 @@
         </h1>
 
         <div class="relative">
-            <Content class="prose dark:prose-invert text-gray-900 dark:text-gray-100" />
+            <Content class="prose dark:prose-invert text-gray-900 dark:text-gray-100 pr-5" />
         </div>
     </article>
 
