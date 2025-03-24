@@ -1,6 +1,6 @@
 <template>
     <article
-        class="md:mt-2 mt-10 md:mx-4 space-y-16 pt-10 sm:p-8 md:p-12 text-left"
+        class="md:mt-2 mt-10 md:mx-4 space-y-16 pt-10 sm:p-6 md:p-8 text-left"
     >
         <h1 class="md:text-6xl text-4xl font-semibold text-gray-900 dark:text-gray-100">
             {{ frontmatter.title }}

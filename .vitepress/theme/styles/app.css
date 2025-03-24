@@ -62,7 +62,7 @@ div[class*="language-"] > span.lang {
     .blog-post nav.table-of-contents {
         position: absolute;
         top: -1.2rem;
-        right: -5rem;
+        right: -7rem;
     }
 
     .blog-post .prose {
