@@ -1,43 +1,43 @@
 ---
 id: 1
-title: Why you don't need repository pattern in Laravel
-description: Learn why you don't necessarily need repository pattern in Laravel, in some cases it might even be an overkill, then we look into when you might actually need one and how to use it properly
+title: Why You Don't Need the Repository Pattern in Laravel
+description: Learn why you don't necessarily need the repository pattern in Laravel. In some cases, it might even be overkill. We'll also explore when you might actually need it and how to use it properly.
 date: 2025-03-23
 ---
 
 [[toc]]
 
-I was cruising X and noticed [some discussions](https://x.com/OMascatinho/status/1903551676176371954) on why not to use Eloquent models directly but utilize the repository pattern. From my years in experience, I tend not to agree and I will explain in detail very shortly. Just to make sure I am not in my own opinionated bubble, I searched on this topic and found some interesting articles, one of them being [I don’t need the Repository Pattern in laravel. (Change my mind)](https://medium.com/@barfiagyenim/i-dont-need-the-repository-pattern-in-laravel-change-my-mind-11828ce72d8e) By [Barfi Boateng](https://x.com/barfiagyenim).
+I was cruising X and noticed [some discussions](https://x.com/OMascatinho/status/1903551676176371954) on why not to use Eloquent models directly but instead utilize the repository pattern. From my years of experience, I tend to disagree, and I will explain why in detail shortly. To ensure I'm not stuck in my own opinionated bubble, I researched this topic and found some interesting articles, one of them being [I Don’t Need the Repository Pattern in Laravel. (Change My Mind)](https://medium.com/@barfiagyenim/i-dont-need-the-repository-pattern-in-laravel-change-my-mind-11828ce72d8e) by [Barfi Boateng](https://x.com/barfiagyenim).
 
-## What is the repository pattern?
+## What is the Repository Pattern?
 
-Let's start by knowing what the repository pattern is. Google puts the definition as "*The Repository Pattern is a software design pattern that acts as an intermediary between your application's business logic and data storage, abstracting away the complexities of data access and providing a consistent interface for interacting with data.*"
+Let's start by understanding what the repository pattern is. Google defines it as:
 
-### Benefits of the repository pattern
+*"The Repository Pattern is a software design pattern that acts as an intermediary between your application's business logic and data storage, abstracting away the complexities of data access and providing a consistent interface for interacting with data."*
 
-- **Improved Testability** We can easily mock these repositories during unit testing.
+### Benefits of the Repository Pattern
 
-- **Decoupling Business Logic from Data Access** Sometimes we might not just run db queries but do some logic first before running. Helps decouples that from the controller.
+- **Improved Testability**: We can easily mock repositories during unit testing.
+- **Decoupling Business Logic from Data Access**: Sometimes, we might need to perform logic before running database queries. This helps decouple that logic from the controller.
+- **Abstraction**: We can implement different versions of the same repository and use them interchangeably.
 
-- **Abstraction** We can easily implement different kinds of the same repository and use them interchangeably.
+This essentially means we have a central place to manage all our data-related logic. From my experience, this pattern is very common in ecosystems like Golang and Node.js, where ORMs are not as prevalent. In the PHP world, this makes sense when using raw PHP. However, in Laravel, I believe Eloquent is more than sufficient for the majority of applications.
 
-Which basically means, we have a central place to have all our data related logic. From my experience this pattern is very common in other ecosystems like Golang and NodeJS which makes sense because they are not big on using ORM. In the PHP world, this makes sense when using raw PHP but in terms of Laravel, I think, subjectively, Laravel Eloquent should be more than enough for majority of the applications out there.
+## Why You Don't Need the Repository Pattern in Laravel
 
-## Why you don't need the repository pattern in Laravel?
+To fully understand my position, let's examine some common arguments for the repository pattern and why you might not need it:
 
-For us to fully understand my position, I will list some of the usual arguments then counter them with why you might not need it:
+- **What happens if you want to change your database?**: This is the most common argument for the repository pattern. My counterpoints are:
 
-- **What happens if you want to change your database?**: This is the major reason people make the argument for the repository pattern. I will counter that:
+    - In real-world production environments, how often have you seen applications with active users change their database? In my experience, it's almost never. The primary database is usually retained, with additional databases employed for specific purposes like performance or reporting. This makes the repository pattern a case of premature optimization and, in some cases, over-engineering.
 
-    - by asking, in real world production environment, how often have you seen application with active users change their database in your experience? In my case, it's been never. The primary database is always kept but maybe other databases are employed to help in regards of maybe performance, reporting etc... This ultimately leads to pre-mature optimization and in some sense over-engineering.
+    - Laravel provides a highly configurable database connection setup by default. In rare cases where something isn't supported, there is almost always a community package that allows Eloquent to integrate with other databases. All you need to do is define the connection and dynamically choose the appropriate database in your application code.
 
-    - In addition, Laravel provides us with a very configurable database connection setup by default. In the rare instance you need something that isn't supported, there is almost always a community package that allows Eloquent to integrate with other databases without you doing anything special. All we have to do is define the connection and we can dynamically choose the right database in the application code.
+- **Not cluttering controllers and keeping business logic separate**: While I agree with this principle, you don't necessarily need a repository to achieve it.
 
-- **Not cluttering the controllers and keeping business logic separated**: I believe in this school of thought actually, but in this case, you might not necessarily need a repository.
+    - Business logic often includes logging, events, notifications, instrumentation, etc., which are not limited to database queries. In such cases, a `Service` class or an `Action` is more appropriate.
 
-    - Business logic usually includes logging, events, notifications, instrumentation, etc... that are not just limited to querying the database. In this sense, what you need is a `Service` class or an `Action`.
-
-    - Most of the repositories I have chanced upon then to just re-invent the wheel by just redefining the same logic Eloquent does for us.
+    - Many repositories I've encountered simply reinvent the wheel by duplicating Eloquent's functionality:
     ```php
     class UserRepository
     {
@@ -48,41 +48,45 @@ For us to fully understand my position, I will list some of the usual arguments 
     }
     ```
 
-- **De-duplicating the codebase from writing the same query in multiple places**: This is a very good practice and skill needed to make applications maintainable as they grow, however, it doesn't necessitate the repository pattern.
+- **De-duplicating the codebase by avoiding repeated queries**: While this is a good practice for maintainability, it doesn't necessitate the repository pattern.
 
-    - Often times we share business logic between entry points in our systems (e.g. same logic in a controller and a console command) and not often the underlying queries. With that, I still believe, we can use a `Service` class or an `Action` to achieve the desired outcome.
+    - Often, we share business logic between entry points (e.g., controllers and console commands) rather than the underlying queries. In such cases, a `Service` class or an `Action` is sufficient.
 
-    - We can use [Eloquent Query Scopes](https://laravel.com/docs/12.x/eloquent#query-scopes) or we can use helper methods on the Models to encapsulate some repeated queries.
+    - You can use [Eloquent Query Scopes](https://laravel.com/docs/12.x/eloquent#query-scopes) or helper methods on models to encapsulate repeated queries.
 
-    - When we need big queries or large customizations we can even use custom [Query Builders](https://martinjoo.dev/build-your-own-laravel-query-builders) in Laravel.
+    - For complex queries or large customizations, you can even use custom [Query Builders](https://martinjoo.dev/build-your-own-laravel-query-builders) in Laravel.
 
-- **Improve testability by mocking repositories**: In other environments like Golang and NodeJS, I will ultimately agree with this, however in Laravel, we have a strong suite of solutions to aid in testing our applications. From database factories, mocking objects directly in the application container, useful traits such as `DatabaseTransactions`, `RefreshDatabase`, etc... that gives you a wide range of options to write unit tests that touch the database.
-<br />
-<br />
+- **Improving testability by mocking repositories**: While this is valid in environments like Golang and Node.js, Laravel offers a robust suite of testing tools. These include database factories, mocking objects directly in the application container, and traits like `DatabaseTransactions` and `RefreshDatabase`, which provide a wide range of options for writing unit tests that touch the database.
 
 > [!CAUTION]
-> One symptom I see about repository pattern is, they end up always re-implementing the same methods that exist in Eloquent. Another worst case is people injecting concrete repositories directly into controllers, commands etc... which defeats all the major advantage of the repository pattern; which is, being able to abstract and swap the data operations depending on the database.
+> A common issue with the repository pattern is that it often ends up re-implementing methods that already exist in Eloquent. Worse, some developers inject concrete repositories directly into controllers or commands, defeating the primary advantage of the repository pattern: abstraction and the ability to swap data operations depending on the database.
 
-## How to properly implement the repository pattern?
+## How to Properly Implement the Repository Pattern When Needed
 
-### Best practices to follow:
-- Always pass the interface of the repository as dependency to your consuming classes such as controllers, commands, etc..
-- Bind the needed concrete repository to the application container during service provider registration so it can be used to resolve the interface during dependency injection.
-- The right concrete repository can be resolved by checking `config` value, data from the context or some sort of flag.
+### Best Practices to Follow:
+- Always pass the interface of the repository as a dependency to consuming classes such as controllers, commands, etc.
+- Bind the appropriate concrete repository to the application container during service provider registration. This allows the interface to be resolved during dependency injection.
+- Determine the correct concrete repository to use based on a `config` value, context data, or a flag.
 
 > [!IMPORTANT]
-> **Always build to an interface of the repository** The main purpose of the repository pattern is to allow for abstraction and ability to also work with different databases etc..., if we are to attach the concrete implementation to our controllers, commands, etc... it defeats the purpose entirely.
+> **Always build to an interface of the repository.** The main purpose of the repository pattern is abstraction and the ability to work with different databases. Injecting concrete implementations into controllers or commands defeats this purpose entirely.
 
 ### Example
-One of the very few moments I needed to use repositories was in a reporting system where we had the raw data in our MySQL database, but for performance and some time-based queries, we used elastic search. This was in a GraphQL service but that's not really the subject for today.
 
-**Context**
-- We need to be able to call the same methods or get the same data for both MySQL and Elasticsearch.
-- The database to be used can be passed as a GraphQL directive (`@realtime`) or as an HTTP header, or an artisan command option.
-- We will set the database needed in the `Context` facade that can be used later.
-- When resolving interfaces, we check the `Context` value to determine the right repository to return.
+One of the few scenarios where I found the repository pattern useful was in a reporting system. The raw data was stored in a MySQL database, but for performance and time-based queries, we used Elasticsearch. This was in a GraphQL service, but the principles apply universally.
 
-**Step 1:** We start by defining the methods we need on our interface
+**Context**:
+- We need to call the same methods or retrieve the same data from both MySQL and Elasticsearch.
+
+- The database to use can be specified via a GraphQL directive (`@realtime`), an HTTP header, or an artisan command option.
+
+- The selected database is stored in the `Context` facade for later use.
+
+- When resolving interfaces, we check the `Context` value to determine the appropriate repository.
+<br  />
+<br />
+
+**Step 1:** Define the methods required in the interface.
 
 ```php
 namespace App\Repositories;
@@ -92,11 +96,11 @@ interface MetricRepositoryInterface
     public function getAggregatedSingleValueMetrics(): array;
 
     public function getMetricsOverTime(PeriodEnum $period): ?array;
-    //...
+    // ...
 }
 ```
 
-**Step 2:** We build the concrete implementations of the `MetricRepositoryInterface`, in our case, we are building a repository for mysql database and another for elasticsearch.
+**Step 2:** Implement the `MetricRepositoryInterface` for both MySQL and Elasticsearch.
 
 ```php
 namespace App\Repositories;
@@ -105,12 +109,12 @@ class MysqlMetricRepository implements MetricRepositoryInterface
 {
     public function getAggregatedSingleValueMetrics(): array
     {
-        // query mysql tables
+        // Query MySQL tables
     }
 
     public function getMetricsOverTime(PeriodEnum $period): ?array
     {
-        // query mysql tables
+        // Query MySQL tables
     }
 }
 ```
@@ -120,17 +124,17 @@ class ElasticsearchMetricRepository implements MetricRepositoryInterface
 {
     public function getAggregatedSingleValueMetrics(): array
     {
-        // query elasticsearch index
+        // Query Elasticsearch index
     }
 
     public function getMetricsOverTime(PeriodEnum $period): ?array
     {
-        // query elasticsearch index
+        // Query Elasticsearch index
     }
 }
 ```
 
-**Step 3:** In our controller, we then accept the interface as a dependency that will be resolved to a concrete implementation during the application boot-up.
+**Step 3:** Inject the interface into the controller.
 
 ```php
 namespace App\Http\Controllers;
@@ -141,7 +145,7 @@ use Illuminate\Http\JsonResponse;
 
 class MetricsController
 {
-    public function construct(private MetricRepositoryInterface $repository)
+    public function __construct(private MetricRepositoryInterface $repository)
     {
         //
     }
@@ -158,7 +162,7 @@ class MetricsController
 }
 ```
 
-**Step 4:** How do we resolve which repository to use? Let's say hypothetically, we need the Elasticsearch implementation when it's set directly in the `Context` otherwise always return the MySQL implementation.
+**Step 4:** Resolve the appropriate repository in the service provider.
 
 ```php
 namespace App\Providers;
@@ -175,8 +179,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(MetricRepositoryInterface::class, function (Application $app): MetricRepositoryInterface {
-            // This can be a config setting too eg. config('app.data_store')
+        $this->app->bind(MetricRepositoryInterface::class, function () {
             $database = Context::get('data_store');
 
             return $database === 'elasticsearch' ? new ElasticsearchMetricRepository() : new MysqlMetricRepository();
@@ -185,6 +188,4 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-## What are the arguments for the repository pattern?
-### What if you change your database?
-The most common argument most people come up with to justify why they need repository pattern is what happens when you have to change your underlying data.
+## Conclusion
