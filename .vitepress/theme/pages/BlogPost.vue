@@ -11,6 +11,8 @@
         </div>
     </article>
 
+    <AboutMe />
+
     <div class="mt-16 pl--10 flex flex-wrap justify-center gap-4">
         <SolidButton href="/blog">Back to Blog</SolidButton>
         <PlainButton href="/">Home</PlainButton>
@@ -21,6 +23,7 @@
 import { useData } from "vitepress";
 import SolidButton from "../components/SolidButton.vue";
 import PlainButton from "../components/PlainButton.vue";
+import AboutMe from "../components/AboutMe.vue";
 
 const { frontmatter } = useData();
 </script>
