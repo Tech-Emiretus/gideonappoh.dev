@@ -14,7 +14,7 @@ For instance, on X, there was [this realization that UUIDs are not sortable](htt
 > [!IMPORTANT]
 > If your application is small, with a few hundred thousand rows or less, overthinking this might be overkill. In such cases, integer keys or any familiar option should suffice, as performance differences will be marginal.
 
-## Why is the Type of an ID Important?
+## Why is the Type of ID Important?
 
 Most ORMs and migration libraries default to integer-based IDs for database entities. While this works well for small to medium applications, the choice of ID type becomes critical in high-throughput and large-scale systems.
 
@@ -37,7 +37,7 @@ Exposing deterministic IDs, especially integer-based IDs, can lead to:
   - **Business Size**: Competitors can estimate the total number of entities in your system, such as orders, users, or transactions.
   - **Business Velocity**: By observing changes in IDs over time, competitors can infer your growth rate. For example, if the max order ID increases from 6000 to 6010 in a week, they know you processed only 10 orders that week.
 
-## Characteristics of a Good ID Type in Distributed Systems
+## Characteristics of Good ID Types in Distributed Systems
 
 1. **Idempotent & Universally Unique**: Timestamp-based IDs like ULID or Snowflake IDs prevent collisions and provide a true sense of uniqueness in distributed systems.
 
