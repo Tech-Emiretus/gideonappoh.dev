@@ -16,7 +16,7 @@
                     Hi 👋🏼, I am Gideon Appoh
                 </h2>
                 <p class="md:text-lg text-gray-700 dark:text-gray-300">
-                    I am a software engineer with over a decade of experience, I am passionate about building and I love to share my knowledge and experiences with others. Follow me on my journey as I share my thoughts and experiences on various topics.
+                    I am a software engineer with over a decade of experience, I am passionate about learning and I love to share my knowledge and experiences with others. Follow me on my journey as I share my thoughts and experiences on various topics.
                 </p>
 
                 <SocialLinks />
