@@ -7,8 +7,8 @@
         <p
             class="mb-6 text-xl leading-relaxed text-gray-700 md:text-2xl dark:text-gray-300"
         >
-            Seasoned Software Architect with over a decade of crafting robust,
-            scalable systems - transforming complex requirements into elegant,
+            Seasoned Software Architect with over a decade of experience - crafting robust,
+            scalable systems and transforming complex requirements into elegant,
             efficient solutions.
         </p>
         <p
