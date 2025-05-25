@@ -70,7 +70,7 @@ Regularly running these tools helps keep your codebase lean and easier to unders
 
 ## Now, Refactor—But Keep It Simple
 
-With tests in place, you can safely refactor the codebase. Use your tests as a safety net and avoid overcomplicating the architecture. Stick to the KISS principle (Keep It Simple, Stupid). Incremental improvements are more sustainable than big-bang rewrites.
+With tests in place, you can safely refactor the codebase. Use your tests as a safety net and avoid over-complicating the architecture. Stick to the KISS principle (Keep It Simple, Stupid). Incremental improvements are more sustainable than big-bang rewrites.
 
 ## Standardize the Development Environment
 
